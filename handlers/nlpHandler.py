@@ -103,8 +103,7 @@ def predict_sentiment_transformers(data):
 
 def predict_sentiment_csv(requestFiles):
     # Check if a file is part of the request
-    if 'file' not in requestFiles:
-        return jsonify({'error': 'No file uploaded'}), 400
+    print(requestFiles)
 
     file = requestFiles['file']
     
@@ -125,7 +124,7 @@ def predict_sentiment_csv(requestFiles):
         sentiments = []
         for index, row in df.iterrows():
             text = row['review_text']
-            preprocessed_text = preprocess_text(text)
+            preprocessed_text = preprocess_text(text, False)
             sentiment, sentiment_scores = analyze_sentiment(preprocessed_text)
             sentiments.append({
                 'text': text,
@@ -138,6 +137,6 @@ def predict_sentiment_csv(requestFiles):
             'sentiments': sentiments
         })
 
-    return jsonify({'error': 'Invalid file format. Only CSV files are allowed.'}), 400
+    return jsonify({'error': 'Invalid file format. Only CSV files are allowed.'}, 400)
 
 

@@ -1,8 +1,10 @@
 from flask import Flask, request, make_response, render_template, jsonify
 # import os
 from handlers import nlpHandler
+import pandas as pd
 
 app = Flask(__name__)
+app.config['PROPAGATE_EXCEPTIONS'] = True
 
 @app.route("/")
 def index():
